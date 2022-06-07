@@ -1,0 +1,4 @@
+alias ys="yarn start"
+
+function px2rem() { python -c print\($@\/16\) }
+function rem2px() { python -c print\($@\*16\) }

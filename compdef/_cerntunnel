@@ -1,0 +1,18 @@
+#compdef cerntunnel
+
+_cerntunnel() {
+  local -a commands
+
+  commands=(
+    'connect:Connects CERN tunnel.'
+    'disconnect:Disconnects CERN tunnel.'
+  )
+
+  if (( CURRENT == 2 )); then
+    _describe -t commands 'commands' commands
+  fi
+
+  return 0
+}
+
+_cerntunnel

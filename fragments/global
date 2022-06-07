@@ -1,0 +1,73 @@
+# variables to define in env:
+# LOCATION: weather location
+
+export OS=$(cat /etc/os-release | grep -E '^NAME' | cut -d'"' -f 2)
+
+# reload shell
+alias reload="source ${HOME}/.dotfiles/zshrc"
+
+# tmux with conf
+alias tmux="tmux -f ${HOME}/.dotfiles/conf/tmux.conf"
+alias ta="tmux attach"
+
+# dirs
+alias ...='../..'
+alias ....='../../..'
+alias .....='../../../..'
+alias ......='../../../../..'
+
+# ls
+alias ls='ls -h --color=auto -N'
+alias ll='ls -lh'
+alias la='ls -lah'
+alias l='ls -CF'
+
+# gpg
+alias gpglist='gpg --list-keys --keyid-format long'
+
+# package managers
+if   [ $OS = "Arch Linux" ]; then
+  alias pacu='sudo pacman -Syy'
+  alias pacs='sudo pacman -Sy'
+  alias pacr='sudo pacman -R'
+  alias pacf='sudo pacman -F'
+  alias pacupg='sudo pacman -Syyu'
+elif [ $OS = "Ubuntu" ]; then
+  alias update='sudo apt update'
+  alias upgrade='sudo apt upgrade -V'
+  alias purge='sudo apt purge'
+  alias install='sudo apt install'
+  alias dist-upgrade='sudo apt-get dist-upgrade -V'
+  alias clean='sudo orphaner; sudo apt-get autoremove --purge; sudo apt-get clean; sudo apt-get autoclean'
+# todo: centos
+fi
+
+# weather
+alias w1='curl wttr.in/${LOCATION}'
+alias w2='curl v2.wttr.in/${LOCATION}'
+
+# background connections
+sb() { ssh -fN $@ ; }
+
+# clear background connections
+kill_sbs() {
+  for ssh_control_path in "${HOME}/.ssh/control"*;
+  do
+    control_name=$(basename "$ssh_control_path")
+    ssh -S $ssh_control_path -O exit $control_name &> /dev/null
+  done
+}
+
+sshmount() {
+  if [ -z "$2" ]; then
+    remote_path=/
+  else
+    remote_path="$2"
+  fi
+
+  [ -d "${HOME}/$1" ] && [[ ! -z `l -A "${HOME}/$1"` ]] && echo Directory \'$1\' exists and is not empty. Aborting. && return 1
+
+  [ ! -d "${HOME}/$1" ] && mkdir "${HOME}/$1"
+
+  sshfs $1:$remote_path $HOME/$1 -o kernel_cache,auto_cache,reconnect,no_readahead
+}

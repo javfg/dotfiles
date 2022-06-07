@@ -1,0 +1,7 @@
+envs/_*
+fragments/hosts/_*
+
+install/_*
+
+showerthoughts/showerthoughts
+showerthoughts/showerthoughtshistory

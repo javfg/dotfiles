@@ -1,0 +1,45 @@
+# CERN-related aliases and functions
+
+# variables to define in env:
+# CERN_MACHINES: array of machines to make background connections to
+# CERN_USER: cern username for tunnel
+
+# dynamic tunnel
+function cerntunnel() {
+  case $@ in
+    connect)
+      ssh -D localhost:1337 -S /tmp/.ssh-lxtunnel -M -fN $CERN_USER@lxtunnel.cern.ch -E /tmp/.ssh-lxtunnel-log
+      shift
+    ;;
+    disconnect)
+      ssh -S /tmp/.ssh-lxtunnel -O exit $CERN_USER@lxtunnel.cern.ch
+      shift
+    ;;
+    *)
+      # unknown option
+      echo "Usage: tunnel.sh [connect|disconnect]"
+   ;;
+  esac
+}
+
+function work() {
+  echo 'Connecting tunnel...'
+  cerntunnel connect
+  echo 'Obtaining Kerberos ticket...'
+  kinit $USER
+  echo 'Setting up background SSH connections...'
+  for machine in ${CERN_MACHINES[@]}
+  do
+    sb $machine
+  done
+}
+
+function workdone() {
+  echo 'Disconnecting tunnel...'
+  cerntunnel disconnect
+  echo 'Clearing Kerberos tickets...'
+  kdestroy
+  echo 'Killing background SSH connections...'
+  kill_sbs
+  echo 'All done, have fun!'
+}

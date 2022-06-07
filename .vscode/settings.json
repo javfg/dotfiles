@@ -1,0 +1,12 @@
+{
+  "files.associations": {
+    "**/compdef/_*": "shellscript",
+    "**/fragments/**/_*": "shellscript",
+    "**/envs/*": "shellscript"
+  },
+  "search.exclude": {
+    "compdef": true,
+    "conf": true,
+    "showerthoughts": true
+  }
+}
