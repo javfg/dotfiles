@@ -3,6 +3,15 @@
 # variables to define in env:
 # CERN_MACHINES: array of machines to make background connections to
 # CERN_USER: cern username for tunnel
+# CERN_NAME: user name for git config
+# CERN_EMAIL: cern email for git config
+# CERN_SIGNINGKEY: gpg key for signing commits
+
+function gitcern() {
+  git config --local user.name "${CERN_NAME}"
+  git config --local user.email "${CERN_EMAIL}"
+  git config --local user.signingkey $CERN_SIGNINGKEY
+}
 
 # dynamic tunnel
 function cerntunnel() {
@@ -26,7 +35,7 @@ function work() {
   echo 'Connecting tunnel...'
   cerntunnel connect
   echo 'Obtaining Kerberos ticket...'
-  kinit $USER
+  kinit $CERN_USER
   echo 'Setting up background SSH connections...'
   for machine in ${CERN_MACHINES[@]}
   do

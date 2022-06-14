@@ -1,13 +1,11 @@
 #!/bin/bash
 
-export OS=$(cat /etc/os-release | grep -E '^NAME' | cut -d'"' -f 2)
-
 install_package() {
-  if [ "$OS" = "Arch Linux" ]; then
+  if type pacman > /dev/null 2>&1; then
     sudo pacman -Syy --noconfirm $@
-  elif [ "$OS" = "Ubuntu" ]; then
+  elif type apt > /dev/null 2>&1; then
     sudo apt --assume-yes install $@
-  elif [ "$OS" = "CentOS Linux" ]; then
+  elif type yum > /dev/null 2>&1; then
     sudo yum -y install $@
   fi
 }
