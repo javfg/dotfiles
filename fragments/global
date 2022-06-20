@@ -86,3 +86,6 @@ historyclean() {
 
   echo "Removed ${count} entries from history"
 }
+
+alias myip='curl -s https://ipinfo.io/ip'
+alias myipgeo='curl -s https://ipapi.co/$(curl -s https://ipinfo.io/ip)/json'
