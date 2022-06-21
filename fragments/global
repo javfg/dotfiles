@@ -42,8 +42,21 @@ elif type apt > /dev/null 2>&1; then
 fi
 
 # weather
-alias w1='curl wttr.in/${LOCATION}'
-alias w2='curl v2.wttr.in/${LOCATION}'
+w1() {
+  if [ $# -eq 0 ]; then
+    curl wttr.in/${LOCATION}
+  else
+    curl wttr.in/$@
+  fi
+}
+
+w2() {
+  if [ $# -eq 0 ]; then
+    curl v2.wttr.in/${LOCATION}
+  else
+    curl v2.wttr.in/$@
+  fi
+}
 
 # background connections
 sb() { ssh -fN $@ ; }
