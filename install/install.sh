@@ -1,6 +1,6 @@
 #!/bin/bash
 
-install_package() {
+install_packages() {
   if type pacman > /dev/null 2>&1; then
     sudo pacman -Syy --noconfirm $@
   elif type apt > /dev/null 2>&1; then
@@ -11,8 +11,8 @@ install_package() {
 }
 
 # install required system-wide distro packages
-package_list=( most nano vim tmux git fd )
-install_package $f
+package_list=( most nano vim tmux git fd thefuck )
+install_packages $package_list
 
 # install oh-my-zsh...
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended

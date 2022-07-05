@@ -56,5 +56,8 @@ done
 source $HOME/.dotfiles/conf/fzf-completion.zsh
 source $HOME/.dotfiles/conf/fzf.zsh
 
+# thefuck config
+eval $(thefuck --alias)
+
 # Show showerthoughts
 [ $SHOW_SHOWER ] && $HOME/.dotfiles/showerthoughts/showerthoughts.sh
