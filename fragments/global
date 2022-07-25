@@ -102,3 +102,8 @@ historyclean() {
 
 alias myip='curl -s https://ipinfo.io/ip'
 alias myipgeo='curl -s https://ipapi.co/$(curl -s https://ipinfo.io/ip)/json'
+
+tere() {
+    local result=$(${HOME}/.cargo/bin/tere "$@")
+    [ -n "$result" ] && cd -- "$result"
+}

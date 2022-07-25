@@ -11,7 +11,7 @@ install_packages() {
 }
 
 # install required system-wide distro packages
-package_list=( most nano vim tmux git fd thefuck )
+package_list=( most nano vim tmux git fd thefuck rust )
 install_packages $package_list
 
 # install oh-my-zsh...
@@ -27,3 +27,7 @@ git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$
 
 # install fzf
 git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf
+$HOME/.fzf/install --key-bindings --completion --no-update-rc
+
+# install tere
+cargo install tere
