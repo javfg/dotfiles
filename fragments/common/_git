@@ -5,4 +5,4 @@ alias gl1a="git log --color=always --graph --pretty=tformat:'%C(bold yellow)%h%C
 alias gits="git status"
 alias gitd="git diff"
 alias gitp="git push"
-alias gita="git add -A && git commit --amend --no-edit && git push -f"
+alias gita="git add -A && git commit --amend --no-edit && git push -f --force-with-lease"
