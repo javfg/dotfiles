@@ -1,0 +1,10 @@
+alias kg='kubectl get'
+alias kgw='kubectl get -o wide'
+alias kga='kubectl get all'
+alias kgaw='kubectl get all -o wide'
+
+alias kd='kubectl describe'
+alias kr='kubectl delete'
+alias kc='kubectl create'
+
+alias murl='minikube service --url'

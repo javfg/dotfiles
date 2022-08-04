@@ -20,6 +20,9 @@ alias ll='ls -lh'
 alias la='ls -lah'
 alias l='ls -CF'
 
+# color stuff
+alias ip='ip -color=auto'
+
 # gpg
 alias gpglist='gpg --list-keys --keyid-format long'
 
