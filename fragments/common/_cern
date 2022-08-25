@@ -31,11 +31,18 @@ function cerntunnel() {
   esac
 }
 
+# curl using socket
+alias curlcern='curl -x socks5h://localhost:1337'
+
 function work() {
   echo 'Connecting tunnel...'
   cerntunnel connect
   echo 'Obtaining Kerberos ticket...'
-  kinit $CERN_USER
+  (exit 1)
+  while [ $? -ne 0 ]
+  do
+    kinit $CERN_USER
+  done
   echo 'Setting up background SSH connections...'
   for machine in ${CERN_MACHINES[@]}
   do

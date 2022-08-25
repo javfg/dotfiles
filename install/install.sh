@@ -31,3 +31,6 @@ $HOME/.fzf/install --key-bindings --completion --no-update-rc
 
 # install tere
 cargo install tere
+
+# install thefuck
+pip install thefuck
