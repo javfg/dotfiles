@@ -29,7 +29,7 @@ unsetopt EXTENDEDGLOB            # don't enable extended glob stuff for now (nee
 
 # command completion
 fpath=($HOME/.dotfiles/compdef $fpath)
-plugins=(zsh-completions zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(zsh-completions zsh-autosuggestions zsh-syntax-highlighting git-open)
 autoload -U compinit && compinit
 
 # start oh-my-zsh
@@ -55,8 +55,11 @@ do
 done
 
 # fzf config
-source $HOME/.dotfiles/conf/fzf-completion.zsh
-source $HOME/.dotfiles/conf/fzf.zsh
+# source $HOME/.dotfiles/conf/fzf-completion.zsh
+# source $HOME/.dotfiles/conf/fzf.zsh
+
+# mcfly config
+eval "$(mcfly init zsh)"
 
 # thefuck config
 eval $(thefuck --alias)

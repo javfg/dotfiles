@@ -61,6 +61,11 @@ w2() {
   fi
 }
 
+# cheat.sh cheatsheets
+cheat() {
+  curl cheat.sh/$@
+}
+
 # background connections
 sb() { ssh -fN $@ ; }
 
