@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if type pacman > /dev/null 2>&1; then
-  package_list=( most nano vim tmux git fd rust thefuck bat xsel rlwrap difftastic )
+  package_list=( most nano vim tmux git fd rust thefuck bat xsel rlwrap difftastic fd )
 else
   package_list=( most nano vim tmux git fd rust )
 fi
@@ -51,3 +51,9 @@ curl -s https://cht.sh/:cht.sh | sudo tee /usr/local/bin/cht.sh && sudo chmod +x
 if type difft > /dev/null 2>&1; then
   git config --global diff.external difft
 fi
+
+# install missing packages in centos
+elif type yum > /dev/null 2>&1; then
+  cargo install fd-find
+fi
+
