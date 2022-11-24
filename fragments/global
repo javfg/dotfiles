@@ -34,6 +34,7 @@ if type pacman > /dev/null 2>&1; then
   alias pacf='sudo pacman -F'
   alias pacupg='sudo pacman -Syyu'
   alias paru='paru -Syu --skipreview'
+  alias pacclean='sudo pacman -Rns $(pacman -Qtdq)'
 elif type apt > /dev/null 2>&1; then
   alias update='sudo apt update'
   alias upgrade='sudo apt upgrade -V'
