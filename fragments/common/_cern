@@ -8,8 +8,8 @@
 # CERN_SIGNINGKEY: gpg key for signing commits
 
 function gitcern() {
-  git config --local user.name "${CERN_NAME}"
-  git config --local user.email "${CERN_EMAIL}"
+  git config --local user.name "$CERN_NAME"
+  git config --local user.email "$CERN_EMAIL"
   git config --local user.signingkey $CERN_SIGNINGKEY
 }
 
@@ -44,7 +44,7 @@ function work() {
     kinit $CERN_USER
   done
   echo 'Setting up background SSH connections...'
-  for machine in ${CERN_MACHINES[@]}
+  for machine in $CERN_MACHINES[@]
   do
     sb $machine
   done

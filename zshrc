@@ -8,7 +8,7 @@ export VISUAL=vim
 export EDITOR=vim
 export PAGER="/usr/bin/most -s"
 export ZSH_THEME="powerlevel10k/powerlevel10k"
-export PATH=$HOME/.local/bin:$PATH
+export PATH=$HOME/.local/bin:$HOME/.dotfiles/bin/common:$HOME/.dotfiles/bin/hosts/_$(hostname):$PATH
 
 # history config
 HISTFILE=$HOME/.zsh_history
@@ -44,12 +44,12 @@ setopt NO_SHARE_HISTORY          # don't share history
 # clear and load relevant env file and fragments
 unalias -m '*'
 relevant_fragments=( \
-  "${HOME}/.dotfiles/envs/_$(hostname)" \
-  "${HOME}/.dotfiles/fragments/global" \
-  "${HOME}/.dotfiles/fragments/common/_"* \
-  "${HOME}/.dotfiles/fragments/hosts/_$(hostname)" \
+  "$HOME/.dotfiles/envs/_$(hostname)" \
+  "$HOME/.dotfiles/fragments/global" \
+  "$HOME/.dotfiles/fragments/common/_"* \
+  "$HOME/.dotfiles/fragments/hosts/_$(hostname)" \
 )
-for f in "${relevant_fragments[@]}"
+for f in "$relevant_fragments[@]"
 do
   [ -f $f ] && source $f
 done

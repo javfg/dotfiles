@@ -56,4 +56,3 @@ fi
 elif type yum > /dev/null 2>&1; then
   cargo install fd-find
 fi
-

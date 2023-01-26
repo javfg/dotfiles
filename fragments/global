@@ -2,10 +2,10 @@
 # LOCATION: weather location
 
 # reload shell
-alias reload="source ${HOME}/.dotfiles/zshrc"
+alias reload="source $HOME/.dotfiles/zshrc"
 
 # tmux with conf
-alias tmux="tmux -f ${HOME}/.dotfiles/conf/tmux.conf"
+alias tmux="tmux -f $HOME/.dotfiles/conf/tmux.conf"
 alias ta="tmux attach"
 
 # dirs
@@ -48,7 +48,7 @@ fi
 # weather
 w1() {
   if [ $# -eq 0 ]; then
-    curl wttr.in/${LOCATION}
+    curl wttr.in/$LOCATION
   else
     curl wttr.in/$@
   fi
@@ -56,7 +56,7 @@ w1() {
 
 w2() {
   if [ $# -eq 0 ]; then
-    curl v2.wttr.in/${LOCATION}
+    curl v2.wttr.in/$LOCATION
   else
     curl v2.wttr.in/$@
   fi
@@ -72,7 +72,7 @@ sb() { ssh -fN $@ ; }
 
 # clear background connections
 kill_sbs() {
-  for ssh_control_path in "${HOME}/.ssh/control"*;
+  for ssh_control_path in "$HOME/.ssh/control"*;
   do
     control_name=$(basename "$ssh_control_path")
     ssh -S $ssh_control_path -O exit $control_name &> /dev/null
@@ -86,9 +86,9 @@ sshmount() {
     remote_path="$2"
   fi
 
-  [ -d "${HOME}/$1" ] && [[ ! -z `l -A "${HOME}/$1"` ]] && echo Directory \'$1\' exists and is not empty. Aborting. && return 1
+  [ -d "$HOME/$1" ] && [[ ! -z `l -A "$HOME/$1"` ]] && echo Directory \'$1\' exists and is not empty. Aborting. && return 1
 
-  [ ! -d "${HOME}/$1" ] && mkdir "${HOME}/$1"
+  [ ! -d "$HOME/$1" ] && mkdir "$HOME/$1"
 
   sshfs $1:$remote_path $HOME/$1 -o kernel_cache,auto_cache,reconnect,no_readahead
 }
@@ -106,13 +106,13 @@ historyclean() {
     count=$((count + 1))
   done
 
-  echo "Removed ${count} entries from history"
+  echo "Removed $count entries from history"
 }
 
 alias myip='curl -s https://ipinfo.io/ip'
 alias myipgeo='curl -s https://ipapi.co/$(curl -s https://ipinfo.io/ip)/json'
 
 tere() {
-    local result=$(${HOME}/.cargo/bin/tere "$@")
+    local result=$($HOME/.cargo/bin/tere "$@")
     [ -n "$result" ] && cd -- "$result"
 }
