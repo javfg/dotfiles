@@ -1,5 +1,6 @@
 envs/_*
 fragments/hosts/_*
+bin/hosts/_*
 
 install/_*
 

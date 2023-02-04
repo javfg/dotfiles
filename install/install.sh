@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if type pacman > /dev/null 2>&1; then
-  package_list=( most nano vim tmux git fd rust thefuck bat xsel rlwrap difftastic fd )
+  package_list=( most nano vim tmux git fd rust thefuck bat xsel rlwrap difftastic fd wmctrl )
 else
   package_list=( most nano vim tmux git fd rust )
 fi
