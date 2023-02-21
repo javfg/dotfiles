@@ -4,5 +4,5 @@ bin/hosts/_*
 
 install/_*
 
-showerthoughts/showerthoughts
-showerthoughts/showerthoughtshistory
+bin/common/showerthoughts/showerthoughts
+bin/common/showerthoughts/showerthoughtshistory

@@ -73,4 +73,4 @@ EOF
 chmod +x $HOME/.config/plasma-workspace/env/path.sh
 
 # Show showerthoughts
-[ $SHOW_SHOWER ] && $HOME/.dotfiles/showerthoughts/showerthoughts.sh
+[ $SHOW_SHOWER ] && showshowerthoughts
