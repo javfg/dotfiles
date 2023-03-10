@@ -1,3 +1,14 @@
 #!/bin/bash
 
-source ~/.dotfiles/bin/common/cernjobs/env/bin/activate && ~/.dotfiles/bin/common/cernjobs/getcernjobs.py && ~/.dotfiles/bin/common/cernjobs/showcernjobs.py && deactivate
+wd=$(pwd)
+
+cd ~/.dotfiles/bin/common/cernjobs
+
+source env/bin/activate
+
+./getcernjobs.py
+./showcernjobs.py
+
+deactivate
+
+cd $wd
