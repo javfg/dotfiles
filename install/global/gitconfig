@@ -1,0 +1,10 @@
+[user]
+        name = Javier Ferrer
+        email = javier.f.g@um.es
+        signingkey = A61DCDAED0E97E3F
+[core]
+        editor = vim
+[gpg]
+  program = gpg
+[commit]
+  gpgsign = true

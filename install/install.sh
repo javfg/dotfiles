@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if type pacman > /dev/null 2>&1; then
-  package_list=( most nano vim tmux git fd rust thefuck bat xsel rlwrap difftastic fd wmctrl )
+  package_list=( most nano vim tmux git fd rust thefuck bat xsel rlwrap difftastic fd wmctrl rust python-pip )
 else
   package_list=( most nano vim tmux git fd rust )
 fi
@@ -45,7 +45,7 @@ cargo install tere
 pip install thefuck
 
 # install cheat.sh client
-curl -s https://cht.sh/:cht.sh | sudo tee /usr/local/bin/cht.sh && sudo chmod +x /usr/local/bin/cht.sh
+sudo curl -s https://cht.sh/:cht.sh -o /usr/local/bin/cht.sh && sudo chmod +x /usr/local/bin/cht.sh
 
 # configure difftastic for git
 if type difft > /dev/null 2>&1; then
@@ -56,3 +56,5 @@ fi
 elif type yum > /dev/null 2>&1; then
   cargo install fd-find
 fi
+
+cp global/gitconfig $HOME/.gitconfig
