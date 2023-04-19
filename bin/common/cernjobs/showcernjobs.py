@@ -12,8 +12,8 @@ with open('./cernjobs.json') as jobsfile:
 
 console = Console()
 
-table = Table(show_header=True, box=box.SIMPLE_HEAD,
-              pad_edge=False, row_styles=["none", "dim"])
+table = Table(show_header=True, box=box.SIMPLE_HEAD, pad_edge=False)
+# row_styles=["none", "dim"])
 
 table.add_column("#️⃣ Code", header_style="bold blue", style="blue")
 table.add_column("⌛ Date", header_style="bold green", style="green", width=10)

@@ -1,5 +1,6 @@
 # oneliner with relative/absolute date
 alias gl1="git log --color=always --graph --pretty=tformat:'%C(bold yellow)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ad) %C(bold blue)<%an - %aE>%Creset' --abbrev-commit --date=relative"
+alias gl1np="git --no-pager log --color=always --graph --pretty=tformat:'%C(bold yellow)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ad) %C(bold blue)<%an - %aE>%Creset' --abbrev-commit --date=relative"
 alias gl1a="git log --color=always --graph --pretty=tformat:'%C(bold yellow)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ad) %C(bold blue)<%an - %aE>%Creset' --abbrev-commit --date=absolute"
 
 alias gits="git status"
