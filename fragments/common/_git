@@ -8,3 +8,7 @@ alias gitd="git diff"
 alias gitp="git push"
 alias gita="git add -A && git commit --amend --no-edit && git push -f --force-with-lease"
 alias gito="git open"
+
+alias gitri="git rebase -i"
+alias gitrc="git rebase --continue"
+alias gitcpc="git cherry-pick --continue"
