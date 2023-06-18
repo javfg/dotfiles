@@ -32,11 +32,11 @@ git clone https://github.com/paulirish/git-open.git ${ZSH_CUSTOM:-~/.oh-my-zsh/c
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 
 # install fzf - phasing out
-# git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf
-# $HOME/.fzf/install --key-bindings --completion --no-update-rc
+git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf
+$HOME/.fzf/install --key-bindings --completion --no-update-rc
 
 # install mcfly
-curl -LSfs https://raw.githubusercontent.com/cantino/mcfly/master/ci/install.sh | sudo sh -s -- --git cantino/mcfly
+# curl -LSfs https://raw.githubusercontent.com/cantino/mcfly/master/ci/install.sh | sudo sh -s -- --git cantino/mcfly
 
 # install tere
 cargo install tere
@@ -53,7 +53,7 @@ if type difft > /dev/null 2>&1; then
 fi
 
 # install missing packages in centos
-elif type yum > /dev/null 2>&1; then
+if type yum > /dev/null 2>&1; then
   cargo install fd-find
 fi
 

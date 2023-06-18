@@ -55,11 +55,8 @@ do
 done
 
 # fzf config
-# source $HOME/.dotfiles/conf/fzf-completion.zsh
-# source $HOME/.dotfiles/conf/fzf.zsh
-
-# mcfly config
-eval "$(mcfly init zsh)"
+source $HOME/.dotfiles/conf/fzf-completion.zsh
+source $HOME/.dotfiles/conf/fzf.zsh
 
 # thefuck config
 eval $(thefuck --alias)
