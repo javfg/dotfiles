@@ -1,2 +1,4 @@
+#!/bin/bash
+
 alias iptlv='sudo iptables -L -v'
 alias ip6tlv='sudo ip6tables -L -v'

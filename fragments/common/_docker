@@ -1,9 +1,11 @@
+#!/bin/bash
+
 # clean all images and containers
 function dockerpurge() {
     echo "This will remove all Docker images and containers. Are you sure?"
     select yn in "Yes" "No"; do
         case $yn in
-            Yes ) sudo docker rm $(sudo docker ps -a -q); sudo docker rmi $(sudo docker images -q); break;;
+            Yes ) sudo docker rm "$(sudo docker ps -a -q)"; sudo docker rmi "$(sudo docker images -q)"; break;;
             No ) break;;
         esac
     done
@@ -13,11 +15,11 @@ function dockerpurge() {
 
 # shell in runnning container
 function dci() {
-    docker exec -it $@ /bin/bash
+    docker exec -it "$@" /bin/bash
 }
 
 function dcish() {
-    docker exec -it $@ /bin/sh
+    docker exec -it "$@" /bin/sh
 }
 
 # images

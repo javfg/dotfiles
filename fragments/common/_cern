@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # CERN-related aliases and functions
 
 # variables to define in env:
@@ -10,18 +12,18 @@
 function gitcern() {
   git config --local user.name "$CERN_NAME"
   git config --local user.email "$CERN_EMAIL"
-  git config --local user.signingkey $CERN_SIGNINGKEY
+  git config --local user.signingkey "$CERN_SIGNINGKEY"
 }
 
 # dynamic tunnel
 function cerntunnel() {
   case $@ in
     connect)
-      ssh -4 -D localhost:1337 -S /tmp/.ssh-lxtunnel -M -fN $CERN_USER@lxtunnel.cern.ch -E /tmp/.ssh-lxtunnel-log
+      ssh -4 -D localhost:1337 -S /tmp/.ssh-lxtunnel -M -fN "$CERN_USER"@lxtunnel.cern.ch -E /tmp/.ssh-lxtunnel-log
       shift
     ;;
     disconnect)
-      ssh -S /tmp/.ssh-lxtunnel -O exit $CERN_USER@lxtunnel.cern.ch
+      ssh -S /tmp/.ssh-lxtunnel -O exit "$CERN_USER"@lxtunnel.cern.ch
       shift
     ;;
     *)
@@ -38,15 +40,11 @@ function work() {
   echo 'Connecting tunnel...'
   cerntunnel connect
   echo 'Obtaining Kerberos ticket...'
-  (exit 1)
-  while [ $? -ne 0 ]
-  do
-    kinit $CERN_USER
-  done
+  kinit "$CERN_USER"
   echo 'Setting up background SSH connections...'
-  for machine in $CERN_MACHINES[@]
+  for machine in "${CERN_MACHINES[@]}"
   do
-    sb $machine
+    sb "$machine"
   done
 }
 

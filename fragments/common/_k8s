@@ -1,3 +1,5 @@
+#!/bin/bash
+
 alias kg='kubectl get'
 alias kgw='kubectl get -o wide'
 alias kga='kubectl get all'

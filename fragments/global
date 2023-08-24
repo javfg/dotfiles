@@ -1,11 +1,13 @@
+#!/bin/bash
+
 # variables to define in env:
 # LOCATION: weather location
 
 # reload shell
-alias reload="source $HOME/.dotfiles/zshrc"
+alias reload="source \$HOME/.dotfiles/zshrc"
 
 # tmux with conf
-alias tmux="tmux -f $HOME/.dotfiles/conf/tmux.conf"
+alias tmux="tmux -f \$HOME/.dotfiles/conf/tmux.conf"
 alias ta="tmux attach"
 
 # dirs
@@ -48,34 +50,34 @@ fi
 # weather
 w1() {
   if [ $# -eq 0 ]; then
-    curl wttr.in/$LOCATION
+    curl wttr.in/"$LOCATION"
   else
-    curl wttr.in/$@
+    curl wttr.in/"$1"
   fi
 }
 
 w2() {
   if [ $# -eq 0 ]; then
-    curl v2.wttr.in/$LOCATION
+    curl v2.wttr.in/"$LOCATION"
   else
-    curl v2.wttr.in/$@
+    curl v2.wttr.in/"$1"
   fi
 }
 
 # cheat.sh cheatsheets
 cheat() {
-  curl cheat.sh/$@
+  curl cheat.sh/"$1"
 }
 
 # background connections
-sb() { ssh -fN $@ ; }
+sb() { ssh -fN "$1" ; }
 
 # clear background connections
 kill_sbs() {
   for ssh_control_path in "$HOME/.ssh/control"*;
   do
     control_name=$(basename "$ssh_control_path")
-    ssh -S $ssh_control_path -O exit $control_name &> /dev/null
+    ssh -S "$ssh_control_path" -O exit "$control_name" &> /dev/null
   done
 }
 
@@ -86,21 +88,20 @@ sshmount() {
     remote_path="$2"
   fi
 
-  [ -d "$HOME/$1" ] && [[ ! -z `l -A "$HOME/$1"` ]] && echo Directory \'$1\' exists and is not empty. Aborting. && return 1
+  [ -d "$HOME/$1" ] && [[ -n $(l -A "$HOME/$1") ]] && echo Directory \'"$1"\' exists and is not empty. Aborting. && return 1
 
   [ ! -d "$HOME/$1" ] && mkdir "$HOME/$1"
 
-  sshfs $1:$remote_path $HOME/$1 -o kernel_cache,auto_cache,reconnect,no_readahead
+  sshfs "$1":"$remote_path" "$HOME"/"$1" -o kernel_cache,auto_cache,reconnect,no_readahead
 }
 
 historyclean() {
   count=0
 
   while true; do
-    cat $HOME/.zsh_history | fzf > /tmp/to_remove
-    [ ! $? = 0 ] && break
-    grep -vxFf /tmp/to_remove $HOME/.zsh_history > $HOME/.new_zsh_history
-    mv $HOME/.new_zsh_history $HOME/.zsh_history
+    fzf > /tmp/to_remove < "$HOME"/.zsh_history || break
+    grep -vxFf /tmp/to_remove "$HOME"/.zsh_history > "$HOME"/.new_zsh_history
+    mv "$HOME"/.new_zsh_history "$HOME"/.zsh_history
     rm /tmp/to_remove
     fc -R
     count=$((count + 1))
@@ -113,6 +114,6 @@ alias myip='curl -s https://ipinfo.io/ip'
 alias myipgeo='curl -s https://ipapi.co/$(curl -s https://ipinfo.io/ip)/json'
 
 tere() {
-    local result=$($HOME/.cargo/bin/tere "$@")
+    local result=$("$HOME"/.cargo/bin/tere "$@")
     [ -n "$result" ] && cd -- "$result"
 }

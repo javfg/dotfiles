@@ -1,4 +1,6 @@
+#!/bin/bash
+
 function rndstr() {
   [[ $2 ]] && charset=$2 || charset='A-Za-z0-9!#%&()*+,-./:;<=>?@[\]^_`{|}~'
-  tr -dc $charset </dev/urandom | head -c $1 ; echo
+  tr -dc "$charset" </dev/urandom | head -c $1 ; echo
 }

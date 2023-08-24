@@ -1,7 +1,9 @@
+#!/bin/bash
+
 GREP_OPTS='--color=auto --exclude-dir={.git,.hg,.svn}'
-alias grep="grep $GREP_OPTS"
-alias egrep="egrep $GREP_OPTS"
-alias fgrep="fgrep $GREP_OPTS"
+alias grep="grep \$GREP_OPTS"
+alias egrep="egrep \$GREP_OPTS"
+alias fgrep="fgrep \$GREP_OPTS"
 unset GREP_OPTS
 
 grephere() { grep -rn . -e "$@" ; }

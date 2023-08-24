@@ -1,4 +1,0 @@
-rich
-selenium
-webdriver-manager
-dateparser

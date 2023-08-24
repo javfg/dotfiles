@@ -1,2 +1,4 @@
+#! /bin/bash
+
 alias g++p="g++ -Wall -Weffc++ -Wextra -Wsign-conversion -Werror"
 alias g20="g++p -std=c++20"

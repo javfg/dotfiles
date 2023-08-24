@@ -1,3 +1,5 @@
+#!/bin/bash
+
 alias pipins="pip install --editable ."
 
 function activate() {
@@ -11,3 +13,6 @@ function activate() {
     echo "No python virtualenv found in ./venv or ./env"
   fi
 }
+
+# rye
+[ -f "$HOME/.rye/env" ] && source "$HOME/.rye/env"

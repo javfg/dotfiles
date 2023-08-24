@@ -8,7 +8,7 @@ export VISUAL=vim
 export EDITOR=vim
 export PAGER="/usr/bin/most -s"
 export ZSH_THEME="powerlevel10k/powerlevel10k"
-export PATH=$HOME/.local/bin:$HOME/.dotfiles/bin/common:$HOME/.dotfiles/bin/hosts/_$(hostname):$PATH
+export PATH=$HOME/.dotfiles/bin/hosts/_$(hostname):$PATH
 
 # history config
 HISTFILE=$HOME/.zsh_history
