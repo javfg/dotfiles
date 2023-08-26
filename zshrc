@@ -61,13 +61,8 @@ source $HOME/.dotfiles/conf/fzf.zsh
 # thefuck config
 eval $(thefuck --alias)
 
-# write the full path to plasma-workspace env file
-cat > $HOME/.config/plasma-workspace/env/path.sh << EOF
-#!/bin/bash
-
-export PATH=$PATH
-EOF
-chmod +x $HOME/.config/plasma-workspace/env/path.sh
-
 # Show showerthoughts
 [ $SHOW_SHOWER ] && showshowerthoughts
+
+# GPG password prompt
+export GPG_TTY=$(tty)
