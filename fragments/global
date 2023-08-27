@@ -117,3 +117,13 @@ tere() {
     local result=$("$HOME"/.cargo/bin/tere "$@")
     [ -n "$result" ] && cd -- "$result"
 }
+
+# fzf config
+source "$HOME"/.dotfiles/conf/fzf-completion.zsh
+source "$HOME"/.dotfiles/conf/fzf.zsh
+
+# thefuck config
+eval "$(thefuck --alias)"
+
+# GPG password prompt
+export GPG_TTY=$(tty)

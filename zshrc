@@ -1,8 +1,5 @@
 # javilol zshrc!
 
-# variables to define in env:
-# SHOW_SHOWER: whether to show showerthoughts or not when opening a new terminal
-
 export ZSH=$HOME/.oh-my-zsh
 export VISUAL=vim
 export EDITOR=vim
@@ -53,16 +50,3 @@ for f in "$relevant_fragments[@]"
 do
   [ -f $f ] && source $f
 done
-
-# fzf config
-source $HOME/.dotfiles/conf/fzf-completion.zsh
-source $HOME/.dotfiles/conf/fzf.zsh
-
-# thefuck config
-eval $(thefuck --alias)
-
-# Show showerthoughts
-[ $SHOW_SHOWER ] && showshowerthoughts
-
-# GPG password prompt
-export GPG_TTY=$(tty)

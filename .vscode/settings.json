@@ -6,7 +6,6 @@
   },
   "search.exclude": {
     "compdef": true,
-    "conf": true,
-    "showerthoughts": true
+    "conf": true
   }
 }

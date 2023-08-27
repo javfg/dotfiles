@@ -1,0 +1,48 @@
+name: publish dotfiles in the public repo 🚀
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  publish-dotfiles:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out repo
+      uses: actions/checkout@v3
+      with:
+        path: dotfiles-private
+    - name: Clone public repo and get its .git folder
+      run: |
+        git clone https://javfg:$DOTFILES_TOKEN@github.com/javfg/dotfiles dotfiles-copy
+        mkdir dotfiles
+        cp -r ./dotfiles-copy/.git ./dotfiles
+    - name: Copy new contents into public repo
+      run: |
+        rsync -a --exclude .git ./dotfiles-private/ ./dotfiles
+    - name: Fix gitignore
+      run: |
+        tail -n +2 ./dotfiles-private/.gitignore > ./dotfiles/.gitignore
+        sed -i -e 's/^[ \t]*# //g' ./dotfiles/.gitignore
+    - name: Configure GPG Key
+      run: |
+        echo -n "$GPG_SECRET_KEY" | base64 --decode | gpg --import
+      env:
+        GPG_SECRET_KEY: ${{ secrets.GPG_SECRET_KEY }}
+    - name: Configure git
+      run: |
+        cd ./dotfiles
+        git config user.name "Javier Ferrer"
+        git config user.email "javier.f.g@um.es"
+        git config user.signingkey 39E146B959835FEB
+    - name: Commit if there are changes
+      run: |
+        cd ./dotfiles-private
+        export COMMIT_MSG=$(git --no-pager log --format=%B -n 1 HEAD)
+        cd ../dotfiles
+        git add -A
+        git commit -S -m "${COMMIT_MSG}" -m "Auto publish"
+        git push
+      continue-on-error: true
+    env:
+      DOTFILES_TOKEN: ${{ secrets.DOTFILES_TOKEN }}

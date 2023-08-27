@@ -1,8 +1,6 @@
 envs/_*
 fragments/hosts/_*
 bin/hosts/_*
-
 install/_*
 
-bin/common/showerthoughts/showerthoughts
-bin/common/showerthoughts/showerthoughtshistory
+_dummy_ignore
