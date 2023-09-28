@@ -37,15 +37,18 @@ function cerntunnel() {
 alias curlcern='curl -x socks5h://localhost:1337'
 
 function work() {
-  echo 'Connecting tunnel...'
-  cerntunnel connect
-  echo 'Obtaining Kerberos ticket...'
-  kinit "$CERN_USER"
-  echo 'Setting up background SSH connections...'
-  for machine in "${CERN_MACHINES[@]}"
-  do
-    sb "$machine"
-  done
+  (
+    set -e
+    echo 'Connecting tunnel...'
+    cerntunnel connect
+    echo 'Obtaining Kerberos ticket...'
+    kinit "$CERN_USER"
+    echo 'Setting up background SSH connections...'
+    for machine in "${CERN_MACHINES[@]}"
+    do
+      sb "$machine"
+    done
+  )
 }
 
 function workdone() {
