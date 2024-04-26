@@ -18,11 +18,11 @@ alias gitcpc="git cherry-pick --continue"
 function gitwork() {
   git config --local user.name "$GIT_NAME"
   git config --local user.email "$GIT_WORK_EMAIL"
-  git config --local user.signingkey "$GIT_WORK__SIGNINGKEY"
+  git config --local user.signingkey "$GIT_WORK_SIGNINGKEY"
 }
 
 function gitpers() {
   git config --local user.name "$GIT_NAME"
   git config --local user.email "$GIT_PERSONAL_EMAIL"
-  git config --local user.signingkey "$GIT_PERSONAL__SIGNINGKEY"
+  git config --local user.signingkey "$GIT_PERSONAL_SIGNINGKEY"
 }
