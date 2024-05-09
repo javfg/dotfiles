@@ -23,7 +23,7 @@
     (xbindkey-function '("b:8")
         (lambda ()
             (reset-first-binding)
-            (run-command "qdbus org.kde.kglobalaccel /component/kwin invokeShortcut ShowDesktopGrid")
+            (run-command "qdbus org.kde.kglobalaccel /component/kwin org.kde.kglobalaccel.Component.invokeShortcut 'Grid View'")
             (run-command "killall xbindkeys; xbindkeys -fg ${HOME}/.dotfiles/conf/xbindkeysrc.scm -n -v")
         )
     )

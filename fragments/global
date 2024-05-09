@@ -32,7 +32,7 @@ alias gpglist='gpg --list-keys --keyid-format long'
 if type pacman > /dev/null 2>&1; then
   alias pacu='sudo pacman -Syy'
   alias pacs='sudo pacman -Sy'
-  alias pacr='sudo pacman -R'
+  alias pacr='sudo pacman -Rs'
   alias pacf='sudo pacman -F'
   alias pacupg='sudo pacman -Syyu'
   alias paru='paru -Syu --skipreview'
@@ -95,21 +95,6 @@ sshmount() {
   sshfs "$1":"$remote_path" "$HOME"/"$1" -o kernel_cache,auto_cache,reconnect,no_readahead
 }
 
-historyclean() {
-  count=0
-
-  while true; do
-    fzf > /tmp/to_remove < "$HOME"/.zsh_history || break
-    grep -vxFf /tmp/to_remove "$HOME"/.zsh_history > "$HOME"/.new_zsh_history
-    mv "$HOME"/.new_zsh_history "$HOME"/.zsh_history
-    rm /tmp/to_remove
-    fc -R
-    count=$((count + 1))
-  done
-
-  echo "Removed $count entries from history"
-}
-
 alias myip='curl -s https://ipinfo.io/ip'
 alias myipgeo='curl -s https://ipapi.co/$(curl -s https://ipinfo.io/ip)/json'
 
@@ -117,10 +102,6 @@ tere() {
     local result=$("$HOME"/.cargo/bin/tere "$@")
     [ -n "$result" ] && cd -- "$result"
 }
-
-# fzf config
-source "$HOME"/.dotfiles/conf/fzf-completion.zsh
-source "$HOME"/.dotfiles/conf/fzf.zsh
 
 # thefuck config
 eval "$(thefuck --alias)"
