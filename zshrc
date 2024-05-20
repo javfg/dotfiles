@@ -27,7 +27,8 @@ unsetopt EXTENDEDGLOB            # don't enable extended glob stuff for now (nee
 # command completion
 fpath=($HOME/.dotfiles/compdef $fpath)
 plugins=(zsh-completions zsh-autosuggestions zsh-syntax-highlighting git-open)
-autoload -U compinit && compinit
+autoload bashcompinit && bashcompinit
+autoload -Uz compinit && compinit
 
 # start oh-my-zsh
 source $ZSH/oh-my-zsh.sh
