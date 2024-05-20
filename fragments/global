@@ -101,7 +101,8 @@ alias myipgeo='curl -s https://ipapi.co/$(curl -s https://ipinfo.io/ip)/json'
 tere() {
     local result
     result=$("$HOME"/.cargo/bin/tere "$@")
-    [ -n "$result" ] && cd -- "$result" || exit
+    # shellcheck disable=SC2164
+    [ -n "$result" ] && cd -- "$result"
 }
 
 # thefuck config
@@ -111,4 +112,4 @@ eval "$(thefuck --alias)"
 GPG_TTY=$(tty)
 export GPG_TTY
 
-#
+# fa
