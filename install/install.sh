@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if type pacman > /dev/null 2>&1; then
-  package_list=( most nano vim tmux git fd rust thefuck bat xsel rlwrap difftastic fd wmctrl rust python-pip )
+  package_list=( most nano vim tmux git fd rust thefuck bat xsel rlwrap difftastic fd wmctrl rust python-pip croc tere )
 else
   package_list=( most nano vim tmux git fd rust )
 fi
@@ -37,9 +37,6 @@ git clone --depth 1 https://github.com/junegunn/fzf.git "$HOME"/.fzf
 
 # install mcfly
 # curl -LSfs https://raw.githubusercontent.com/cantino/mcfly/master/ci/install.sh | sudo sh -s -- --git cantino/mcfly
-
-# install tere
-cargo install tere
 
 # install thefuck
 pip install thefuck

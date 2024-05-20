@@ -99,12 +99,16 @@ alias myip='curl -s https://ipinfo.io/ip'
 alias myipgeo='curl -s https://ipapi.co/$(curl -s https://ipinfo.io/ip)/json'
 
 tere() {
-    local result=$("$HOME"/.cargo/bin/tere "$@")
-    [ -n "$result" ] && cd -- "$result"
+    local result
+    result=$("$HOME"/.cargo/bin/tere "$@")
+    [ -n "$result" ] && cd -- "$result" || exit
 }
 
 # thefuck config
 eval "$(thefuck --alias)"
 
 # GPG password prompt
-export GPG_TTY=$(tty)
+GPG_TTY=$(tty)
+export GPG_TTY
+
+#
