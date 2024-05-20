@@ -100,7 +100,7 @@ alias myipgeo='curl -s https://ipapi.co/$(curl -s https://ipinfo.io/ip)/json'
 
 tere() {
     local result
-    result=$("$HOME"/.cargo/bin/tere "$@")
+    result=$(command tere "$@")
     # shellcheck disable=SC2164
     [ -n "$result" ] && cd -- "$result"
 }
