@@ -112,4 +112,6 @@ eval "$(thefuck --alias)"
 GPG_TTY=$(tty)
 export GPG_TTY
 
-# fa
+# fast croc for lan
+alias cs="croc --local send --code 123123"
+alias cr="croc 123123"
