@@ -113,5 +113,5 @@ GPG_TTY=$(tty)
 export GPG_TTY
 
 # fast croc for lan
-alias cs="croc --local send --code 123123"
+alias cs="CROC_SECRET=123123 croc --local send"
 alias cr="croc 123123"
