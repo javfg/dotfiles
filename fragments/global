@@ -115,3 +115,9 @@ export GPG_TTY
 # fast croc for lan
 alias cs="CROC_SECRET=123123 croc --local send"
 alias cr="CROC_SECRET=123123 croc"
+
+# find ip
+alias myip="curl icanhazip.com"
+geoip() {
+    curl -s http://ip-api.com/json/$(curl -s http://icanhazip.com) | jq -r '. | "\(.query): \(.city), \(.regionName), \(.country) (\(.as))"'
+}
