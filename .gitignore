@@ -1,5 +1,6 @@
 envs/_*
 fragments/hosts/_*
+fragments/common/_ebi
 bin/hosts/_*
 install/_*
 

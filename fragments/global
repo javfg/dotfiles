@@ -6,6 +6,9 @@
 # reload shell
 alias reload="source \$HOME/.dotfiles/zshrc"
 
+# edit dotfiles
+alias editdotfiles="code ~/.dotfiles/"
+
 # tmux with conf
 alias tmux="tmux -f \$HOME/.dotfiles/conf/tmux.conf"
 alias ta="tmux attach"
