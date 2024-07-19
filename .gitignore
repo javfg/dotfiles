@@ -4,4 +4,4 @@ fragments/common/_ebi
 bin/hosts/_*
 install/_*
 
-_dummy_ignore
+fragments/common/ebi_bucket_list.txt
