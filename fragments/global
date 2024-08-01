@@ -3,16 +3,6 @@
 # variables to define in env:
 # LOCATION: weather location
 
-# reload shell
-alias reload="source \$HOME/.dotfiles/zshrc"
-
-# edit dotfiles
-alias editdotfiles="code ~/.dotfiles/"
-
-# tmux with conf
-alias tmux="tmux -f \$HOME/.dotfiles/conf/tmux.conf"
-alias ta="tmux attach"
-
 # dirs
 alias ...='../..'
 alias ....='../../..'
@@ -28,8 +18,26 @@ alias l='ls -CF'
 # color stuff
 alias ip='ip -color=auto'
 
+# power
+alias ,reboot='sudo reboot'
+alias ,off='sudo poweroff'
+alias ,screenoff='loginctl lock-session; sleep 3; /bin/dbus-send --session --print-reply --dest=org.kde.kglobalaccel  /component/org_kde_powerdevil org.kde.kglobalaccel.Component.invokeShortcut string:"Turn Off Screen"'
+
+# dotfiles stuff
+alias ,reload_shell="source \$HOME/.dotfiles/zshrc"
+alias ,edit_dotfiles="code ~/.dotfiles/"
+
+# tmux with conf
+alias tmux="tmux -f \$HOME/.dotfiles/conf/tmux.conf"
+alias ta="tmux attach"
+
 # gpg
-alias gpglist='gpg --list-keys --keyid-format long'
+alias ,gpglist='gpg --list-keys --keyid-format long'
+
+# TODO: ssh edition/distribution
+alias ,ssh_edit_config="nano ~/Seafile//conf/ssh/config"
+alias ,ssh_edit_authorized_keys="nano ~/.dotfiles/conf/ssh/authorized_keys"
+alias ,ssh_distribute="~/.dotfiles/conf/ssh/distribute.sh"
 
 # package managers
 if type pacman > /dev/null 2>&1; then
@@ -50,33 +58,29 @@ elif type apt > /dev/null 2>&1; then
 # todo: centos
 fi
 
-# weather
-w1() {
-  if [ $# -eq 0 ]; then
-    curl wttr.in/"$LOCATION"
-  else
-    curl wttr.in/"$1"
-  fi
+# ip
+alias ,ip="curl icanhazip.com"
+,ip_geo() {
+    curl -s http://ip-api.com/json/$(curl -s http://icanhazip.com) | jq -r '. | "\(.query): \(.city), \(.regionName), \(.country) (\(.as))"'
 }
 
-w2() {
-  if [ $# -eq 0 ]; then
-    curl v2.wttr.in/"$LOCATION"
-  else
-    curl v2.wttr.in/"$1"
-  fi
-}
+# fast croc for lan
+alias ,cs="CROC_SECRET=123123 croc --local send"
+alias ,cr="CROC_SECRET=123123 croc"
+
+# weather
+,w1() { if [ $# -eq 0 ]; then curl    wttr.in/"$LOCATION"; else curl    wttr.in/"$1"; fi; }
+,w2() { if [ $# -eq 0 ]; then curl v2.wttr.in/"$LOCATION"; else curl v2.wttr.in/"$1"; fi; }
 
 # cheat.sh cheatsheets
-cheat() {
-  curl cheat.sh/"$1"
-}
+,cheat() { curl cheat.sh/"$1"; }
 
+# ssh aliases
 # background connections
-sb() { ssh -fN "$1" ; }
+,set_background_connection() { ssh -fN "$1" ; }
 
 # clear background connections
-kill_sbs() {
+,kill_background_connections() {
   for ssh_control_path in "$HOME/.ssh/control"*;
   do
     control_name=$(basename "$ssh_control_path")
@@ -84,7 +88,8 @@ kill_sbs() {
   done
 }
 
-sshmount() {
+# mount remote directory
+,ssh_mount() {
   if [ -z "$2" ]; then
     remote_path=/
   else
@@ -92,20 +97,9 @@ sshmount() {
   fi
 
   [ -d "$HOME/$1" ] && [[ -n $(l -A "$HOME/$1") ]] && echo Directory \'"$1"\' exists and is not empty. Aborting. && return 1
-
   [ ! -d "$HOME/$1" ] && mkdir "$HOME/$1"
 
   sshfs "$1":"$remote_path" "$HOME"/"$1" -o kernel_cache,auto_cache,reconnect,no_readahead
-}
-
-alias myip='curl -s https://ipinfo.io/ip'
-alias myipgeo='curl -s https://ipapi.co/$(curl -s https://ipinfo.io/ip)/json'
-
-tere() {
-    local result
-    result=$(command tere "$@")
-    # shellcheck disable=SC2164
-    [ -n "$result" ] && cd -- "$result"
 }
 
 # thefuck config
@@ -115,12 +109,13 @@ eval "$(thefuck --alias)"
 GPG_TTY=$(tty)
 export GPG_TTY
 
-# fast croc for lan
-alias cs="CROC_SECRET=123123 croc --local send"
-alias cr="CROC_SECRET=123123 croc"
-
-# find ip
-alias myip="curl icanhazip.com"
-geoip() {
-    curl -s http://ip-api.com/json/$(curl -s http://icanhazip.com) | jq -r '. | "\(.query): \(.city), \(.regionName), \(.country) (\(.as))"'
+# tere
+tere() {
+    local result
+    result=$(command tere "$@")
+    # shellcheck disable=SC2164
+    [ -n "$result" ] && cd -- "$result"
 }
+
+# temporary fixes for wayland
+alias ghostwriter="ghostwriter --disable-gpu"

@@ -1,4 +1,4 @@
 #!/bin/bash
 
-function px2rem() { python -c print\("$1"/16\); }
-function rem2px() { python -c print\("$1"*16\); }
+function ,px2rem() { python -c print\("$1"/16\); }
+function ,rem2px() { python -c print\("$1"*16\); }

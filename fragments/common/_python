@@ -1,7 +1,5 @@
 #!/bin/bash
 
-alias pipins="pip install --editable ."
-
 function activate() {
   if [[ -d ./venv ]]
   then
@@ -9,8 +7,11 @@ function activate() {
   elif [[ -d ./env ]]
   then
     source ./env/bin/activate
+  elif [[ -d ./.venv ]]
+  then
+    source ./.venv/bin/activate
   else
-    echo "No python virtualenv found in ./venv or ./env"
+    echo "No python virtualenv found in ./venv, ./env or ./.venv"
   fi
 }
 

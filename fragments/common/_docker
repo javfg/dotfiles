@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # clean all images and containers
-function dockerpurge() {
+function ,docker_purge() {
     echo "This will remove all Docker images and containers. Are you sure?"
     select yn in "Yes" "No"; do
         case $yn in
@@ -13,13 +13,9 @@ function dockerpurge() {
     # =''
 }
 
-# shell in runnning container
-function dci() {
-    docker exec -it "$@" /bin/bash
-}
-
-function dcish() {
-    docker exec -it "$@" /bin/sh
+# shell in running container
+function ,docker_it() {
+    docker exec -it "$@" /bin/bash || docker exec -it "$@" /bin/sh
 }
 
 # images
@@ -37,8 +33,8 @@ alias dvls='docker volume ls'
 dvrm() { docker volume rm "$@" ; }
 
 # docker-compose
-alias dcup='docker-compose up'
-alias dcupd='docker-compose up -d'
-alias dcupb='docker-compose up --build'
-alias dcupdb='docker-compose up -d --build'
-alias dcdown='docker-compose down'
+alias dcup='docker compose up'
+alias dcupd='docker compose up -d'
+alias dcupb='docker compose up --build'
+alias dcupdb='docker compose up -d --build'
+alias dcdown='docker compose down'

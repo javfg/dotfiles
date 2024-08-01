@@ -1,6 +1,7 @@
 envs/_*
 fragments/hosts/_*
 fragments/common/_ebi
+fragments/common/_cern
 bin/hosts/_*
 install/_*
 
