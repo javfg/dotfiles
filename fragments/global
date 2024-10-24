@@ -61,7 +61,11 @@ fi
 # ip
 alias ,ip="curl icanhazip.com"
 ,ip_geo() {
+  if [ $# -eq 0 ]; then
     curl -s http://ip-api.com/json/$(curl -s http://icanhazip.com) | jq -r '. | "\(.query): \(.city), \(.regionName), \(.country) (\(.as))"'
+  else
+    curl -s http://ip-api.com/json/"$1" | jq -r '. | "\(.query): \(.city), \(.regionName), \(.country) (\(.as))"'
+  fi
 }
 
 # fast croc for lan
@@ -119,3 +123,6 @@ tere() {
 
 # temporary fixes for wayland
 alias ghostwriter="ghostwriter --disable-gpu"
+
+GPG_TTY=$(tty)
+export GPG_TTY
