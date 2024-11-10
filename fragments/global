@@ -33,6 +33,15 @@ alias ta="tmux attach"
 
 # gpg
 alias ,gpglist='gpg --list-keys --keyid-format long'
+# GPG password prompt
+GPG_TTY=$(tty)
+export GPG_TTY
+
+# free memory
+# shellcheck disable=SC2142
+alias ,memfree="free | grep Mem | xargs | cut -d' ' -f7"
+# shellcheck disable=SC2142
+alias ,memfree_w='watch -tn.5 "free | grep Mem | xargs | cut -d'\'' '\'' -f7"'
 
 # TODO: ssh edition/distribution
 alias ,ssh_edit_config="nano ~/Seafile//conf/ssh/config"
@@ -109,10 +118,6 @@ alias ,cr="CROC_SECRET=123123 croc"
 # thefuck config
 eval "$(thefuck --alias)"
 
-# GPG password prompt
-GPG_TTY=$(tty)
-export GPG_TTY
-
 # tere
 tere() {
     local result
@@ -123,6 +128,3 @@ tere() {
 
 # temporary fixes for wayland
 alias ghostwriter="ghostwriter --disable-gpu"
-
-GPG_TTY=$(tty)
-export GPG_TTY
