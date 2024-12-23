@@ -128,3 +128,6 @@ tere() {
 
 # temporary fixes for wayland
 alias ghostwriter="ghostwriter --disable-gpu"
+
+export XDG_CONFIG_HOME=$HOME/.config
+export PYTHONPYCACHEPREFIX=$HOME/.cache/pycache
