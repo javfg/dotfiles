@@ -93,7 +93,7 @@ alias ,cr="CROC_SECRET=123123 croc"
 ,set_background_connection() { ssh -fN "$1" ; }
 
 # clear background connections
-,kill_background_connections() {
+,ssh_kill_background_connections() {
   for ssh_control_path in "$HOME/.ssh/control"*;
   do
     control_name=$(basename "$ssh_control_path")
