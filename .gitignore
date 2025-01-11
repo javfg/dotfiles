@@ -2,6 +2,7 @@ envs/_*
 fragments/hosts/_*
 fragments/common/_ebi
 fragments/common/_cern
+fragments/common/macs
 bin/hosts/_*
 install/_*
 
