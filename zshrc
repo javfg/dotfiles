@@ -56,7 +56,6 @@ append_path $HOME/.dotfiles/bin/hosts/_$(hostname)
 append_path $GOPATH/bin
 append_path $HOME/.local/bin
 append_path $HOME/.cargo/bin
-append_path /opt/google-cloud-sdk/bin
 
 # clear and load relevant env file and fragments
 unalias -m '*'
