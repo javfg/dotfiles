@@ -38,3 +38,5 @@ alias dcupd='docker compose up -d'
 alias dcupb='docker compose up --build'
 alias dcupdb='docker compose up -d --build'
 alias dcdown='docker compose down'
+
+alias dps='docker ps --format "table {{.ID}}\t{{.Image}}\t{{.Command}}\t{{.RunningFor}}\t{{.Status}}\t{{.Size}}\t{{.Names}}"'

@@ -5,7 +5,6 @@ export VISUAL=vim
 export EDITOR=vim
 export PAGER="/usr/bin/most -s"
 export ZSH_THEME="powerlevel10k/powerlevel10k"
-export PATH=$HOME/.dotfiles/bin/hosts/_$(hostname):$PATH
 
 # history config
 HISTFILE=$HOME/.zsh_history
@@ -25,10 +24,11 @@ setopt HIST_VERIFY               # don't execute immediately upon history expans
 unsetopt EXTENDEDGLOB            # don't enable extended glob stuff for now (need escape magic)
 
 # command completion
-fpath=($HOME/.dotfiles/compdef $fpath)
+fpath=($HOME/.zfunc $HOME/.dotfiles/compdef $fpath)
 plugins=(zsh-completions zsh-autosuggestions zsh-syntax-highlighting git-open)
 autoload bashcompinit && bashcompinit
 autoload -Uz compinit && compinit
+zstyle ':completion:*' menu select
 
 # start oh-my-zsh
 source $ZSH/oh-my-zsh.sh
@@ -38,6 +38,25 @@ source $HOME/.dotfiles/conf/p10k.zsh
 
 # do this again after loading oh-my-zsh and its plugins because some set it back on
 setopt NO_SHARE_HISTORY          # don't share history
+
+# path management
+# append a path if it's not already in the path and it exists
+append_path () {
+  case ":$PATH:" in
+    *:"$1":*)
+    ;;
+  *)
+    if [ -d "$1" ]; then
+      PATH="${PATH:+$PATH:}$1"
+    fi
+  esac
+}
+
+append_path $HOME/.dotfiles/bin/hosts/_$(hostname)
+append_path $GOPATH/bin
+append_path $HOME/.local/bin
+append_path $HOME/.cargo/bin
+append_path /opt/google-cloud-sdk/bin
 
 # clear and load relevant env file and fragments
 unalias -m '*'
