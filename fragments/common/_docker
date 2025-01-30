@@ -19,24 +19,24 @@ function ,docker_it() {
 }
 
 # images
-alias dils='docker image ls'
-alias dilsa='docker image ls -a'
-dirm() { docker image rm "$@" ; }
+alias ,dils='docker image ls'
+alias ,dilsa='docker image ls -a'
+function dirm() { docker image rm "$@" ; }
 
 # containers
-alias dcls='docker container ls'
-alias dclsa='docker container ls -a'
-dcrm() { docker container rm "$@" ; }
+alias ,dcls='docker container ls'
+alias ,dclsa='docker container ls -a'
+function ,dcrm() { docker container rm "$@" ; }
 
 # volumes
-alias dvls='docker volume ls'
-dvrm() { docker volume rm "$@" ; }
+alias ,dvls='docker volume ls'
+function ,dvrm() { docker volume rm "$@" ; }
 
 # docker-compose
-alias dcup='docker compose up'
-alias dcupd='docker compose up -d'
-alias dcupb='docker compose up --build'
-alias dcupdb='docker compose up -d --build'
-alias dcdown='docker compose down'
+alias ,dcup='docker compose up'
+alias ,dcupd='docker compose up -d'
+alias ,dcupb='docker compose up --build'
+alias ,dcupdb='docker compose up -d --build'
+alias ,dcdown='docker compose down'
 
-alias dps='docker ps --format "table {{.ID}}\t{{.Image}}\t{{.Command}}\t{{.RunningFor}}\t{{.Status}}\t{{.Size}}\t{{.Names}}"'
+alias ,dps='docker ps --format "table {{.ID}}\t{{.Image}}\t{{.Command}}\t{{.RunningFor}}\t{{.Status}}\t{{.Size}}\t{{.Names}}"'
