@@ -39,4 +39,46 @@ alias ,dcupb='docker compose up --build'
 alias ,dcupdb='docker compose up -d --build'
 alias ,dcdown='docker compose down'
 
-alias ,dps='docker ps --format "table {{.ID}}\t{{.Image}}\t{{.Command}}\t{{.RunningFor}}\t{{.Status}}\t{{.Size}}\t{{.Names}}"'
+function ,dps () {
+    # Define color codes for better readability
+    local GREEN='\033[1;32m'    # Bright green for container ID
+    local BLUE='\033[1;34m'     # Bright blue for image
+    local PURPLE='\033[1;35m'   # Purple for container names
+    local CYAN='\033[1;36m'     # Cyan for status
+    local GRAY='\033[0;90m'     # Gray for ports
+    local RESET='\033[0m'       # Reset color
+
+    # Run docker ps with custom format and process output
+    command docker ps --all --format "{{.ID}}\t{{.Names}}\t{{.Image}}\t{{.Status}}\t{{.Ports}}" \
+        | (echo -e "CONTAINER_ID\tNAMES\tIMAGE\tSTATUS\tPORTS" && cat) \
+        | awk -v g="${GREEN}" -v p="${PURPLE}" -v b="${BLUE}" -v c="${CYAN}" -v gr="${GRAY}" -v r="${RESET}" \
+            'BEGIN {FS="\t"; OFS="\t"}
+            function clean_ports(ports) {
+                # Remove IPv6 ports
+                gsub(/(\[?:::\]?|\[::]:)[0-9]+->/, "", ports)
+                # Remove 0.0.0.0 from ports
+                gsub(/0\.0\.0\.0:/, "", ports)
+                # Clean up any leftover commas and spaces
+                gsub(/^[, ]+|[, ]+$/, "", ports)
+                gsub(/[, ]+/, ", ", ports)
+                return ports
+            }
+            {
+                if (NR == 1) {
+                    print $1, $2, $3, $4, $5
+                } else {
+                    clean_ports_val = clean_ports($5)
+                    printf "%s%s%s\t%s%s%s\t%s%s%s\t%s%s%s\t%s%s%s\n",
+                        g, $1, r,
+                        p, $2, r,
+                        b, $3, r,
+                        c, $4, r,
+                        gr, clean_ports_val, r
+                }
+            }' \
+        | column -s $'\t' -t \
+        | awk 'NR<2{print $0;next}{print $0 | "sort --key=2"}'
+
+    # Reset colors after execution
+    echo -en "${RESET}"
+}
