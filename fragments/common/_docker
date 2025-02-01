@@ -39,7 +39,7 @@ alias ,dcupb='docker compose up --build'
 alias ,dcupdb='docker compose up -d --build'
 alias ,dcdown='docker compose down'
 
-function ,dps() {
+function dps() {
     # Define color codes for better readability
     local GREEN='\033[1;32m'    # Bright green for container ID
     local BLUE='\033[1;34m'     # Bright blue for image
@@ -126,7 +126,7 @@ function ,dps() {
             }
             {
                 if (NR == 1) {
-                    print $1, $2, $3, $4, $5
+                    print $0
                 } else {
                     clean_ports_val = clean_ports($5)
                     printf "%s%s%s\t%s%s%s\t%s%s%s\t%s%s%s\t%s%s%s\n",
@@ -138,7 +138,7 @@ function ,dps() {
                 }
             }' \
         | column -s $'\t' -t \
-        | sort -k2
+        | (sed -u 1q; sort -k2)
 
     # Reset colors after execution
     echo -en "${RESET}"
