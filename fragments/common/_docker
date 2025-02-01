@@ -39,7 +39,7 @@ alias ,dcupb='docker compose up --build'
 alias ,dcupdb='docker compose up -d --build'
 alias ,dcdown='docker compose down'
 
-function ,dps () {
+function ,dps() {
     # Define color codes for better readability
     local GREEN='\033[1;32m'    # Bright green for container ID
     local BLUE='\033[1;34m'     # Bright blue for image
@@ -53,15 +53,76 @@ function ,dps () {
         | (echo -e "CONTAINER_ID\tNAMES\tIMAGE\tSTATUS\tPORTS" && cat) \
         | awk -v g="${GREEN}" -v p="${PURPLE}" -v b="${BLUE}" -v c="${CYAN}" -v gr="${GRAY}" -v r="${RESET}" \
             'BEGIN {FS="\t"; OFS="\t"}
+            function extract_host_port(port_str) {
+                # For published ports (8080->80/tcp), get the host port (8080)
+                if (port_str ~ /->/) {
+                    match(port_str, /^[0-9]+/)
+                    return sprintf("%d", substr(port_str, RSTART, RLENGTH))
+                }
+                # For exposed ports (80/tcp), get the port (80)
+                match(port_str, /^[0-9]+/)
+                return sprintf("%d", substr(port_str, RSTART, RLENGTH))
+            }
+
             function clean_ports(ports) {
-                # Remove IPv6 ports
-                gsub(/(\[?:::\]?|\[::]:)[0-9]+->/, "", ports)
-                # Remove 0.0.0.0 from ports
-                gsub(/0\.0\.0\.0:/, "", ports)
-                # Clean up any leftover commas and spaces
-                gsub(/^[, ]+|[, ]+$/, "", ports)
-                gsub(/[, ]+/, ", ", ports)
-                return ports
+                if (ports == "") return ""
+
+                # Split ports into array
+                split(ports, port_array, ",")
+                delete unique_ports
+                delete port_list
+                delete port_numbers
+                num_ports = 0
+
+                # Process each port mapping
+                for (i in port_array) {
+                    # Skip empty entries
+                    if (port_array[i] == "") continue
+
+                    # Skip any entry containing IPv6 markers
+                    if (port_array[i] ~ /(\[.*\]|::)/) continue
+
+                    # Remove IPv4 address part
+                    gsub(/0\.0\.0\.0:/, "", port_array[i])
+
+                    # Trim whitespace
+                    gsub(/^[ \t]+|[ \t]+$/, "", port_array[i])
+
+                    # Store in array if its a valid port format
+                    if (port_array[i] ~ /^[0-9]+(->)?[0-9]+\/(tcp|udp)$/) {
+                        if (!unique_ports[port_array[i]]) {
+                            port_num = extract_host_port(port_array[i])
+                            port_list[++num_ports] = port_array[i]
+                            port_numbers[num_ports] = port_num + 0  # Force numeric context
+                            unique_ports[port_array[i]] = 1
+                        }
+                    }
+                }
+
+                # Sort ports by host port number
+                for (i = 1; i <= num_ports; i++) {
+                    for (j = i + 1; j <= num_ports; j++) {
+                        if (port_numbers[i] > port_numbers[j]) {
+                            # Swap both the full port string and its number
+                            temp = port_list[i]
+                            port_list[i] = port_list[j]
+                            port_list[j] = temp
+
+                            temp = port_numbers[i]
+                            port_numbers[i] = port_numbers[j]
+                            port_numbers[j] = temp
+                        }
+                    }
+                }
+
+                # Join sorted ports
+                result = ""
+                for (i = 1; i <= num_ports; i++) {
+                    if (result != "") result = result ", "
+                    result = result port_list[i]
+                }
+
+                return result
             }
             {
                 if (NR == 1) {
@@ -77,7 +138,7 @@ function ,dps () {
                 }
             }' \
         | column -s $'\t' -t \
-        | awk 'NR<2{print $0;next}{print $0 | "sort --key=2"}'
+        | sort -k2
 
     # Reset colors after execution
     echo -en "${RESET}"
