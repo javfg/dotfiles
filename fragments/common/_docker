@@ -39,7 +39,7 @@ alias ,dcupb='docker compose up --build'
 alias ,dcupdb='docker compose up -d --build'
 alias ,dcdown='docker compose down'
 
-function dps() {
+function ,dps() {
     # Define color codes for better readability
     local GREEN='\033[1;32m'    # Bright green for container ID
     local BLUE='\033[1;34m'     # Bright blue for image
